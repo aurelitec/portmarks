@@ -2,6 +2,8 @@
 // Use of this source code is governed by a user license that can be
 // found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../common/ui_strings.dart';
@@ -32,7 +34,8 @@ class _ConverterScreenState extends State<ConverterScreen> {
   }
 
   void _onConvertPressed() {
-    convertUrlsToPortmarks(_controller.text);
+    final List<String> urls = const LineSplitter().convert(_controller.text);
+    portmarkUrls(urls);
   }
 
   @override

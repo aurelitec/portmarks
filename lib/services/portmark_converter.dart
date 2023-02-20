@@ -1,53 +1,39 @@
-import 'dart:convert';
-import 'dart:typed_data';
+// Copyright 2010-2023 Aurelitec. All rights reserved.
+// Use of this source code is governed by a user license that can be
+// found in the LICENSE file.
 
-import 'package:archive/archive.dart';
-import 'package:slugify/slugify.dart';
+/// A library for converting and downloading URLs as portmark files.
+library;
+
+import 'dart:convert';
 
 import 'portmark_maker.dart';
 import 'web_file_downloader.dart';
-// import 'filename_slugify.dart';
-
-void convertUrlsToPortmarks(String urlsText) {
-  List<String> urls = const LineSplitter().convert(urlsText);
-  print(urls.length);
-
-  if (urls.isEmpty) {
-    return;
-  }
-
-  if (urls.length == 1) {
-    _convertAndDownloadSingleUrl(urls[0]);
-  } else if (urls.length > 1) {
-    // _convertAndDownloadMultipleUrls(urls);
-    for (var url in urls) {
-      _convertAndDownloadSingleUrl(url);
-    }
-  }
-}
 
 /// The default file extension for a portmark file.
 const String _portmarkFileExtension = '.html';
 
-class _PortmarkFile {
-  final String name;
-  final String content;
+/// The default delay between downloading multiple portmark files. This is to avoid overloading the
+/// browser with too many simultaneous downloads.
+const Duration _portmarkDelay = Duration(seconds: 1);
 
-  _PortmarkFile(this.name, this.content);
+/// Converts a list of URL strings to portmark files and downloads them.
+void portmarkUrls(List<String> urls) {
+  if (urls.length == 1) {
+    // Convert and download a single URL, without a delay
+    _portmarkSingleUrl(urls[0]);
+  } else if (urls.length > 1) {
+    // Convert and download multiple URLs, with a delay between each
+    _portmarkMultipleUrls(urls);
+  }
 }
 
-_PortmarkFile? _portmarkFileFromUrl(String urlString) {
+/// Converts a single URL string to a portmark file and downloads it.
+bool _portmarkSingleUrl(String urlString) {
   Uri? uri = Uri.tryParse(urlString);
-  if (uri == null) {
-    print('Invalid URL: $urlString');
-    return null;
-  } else {
-    print('Good URL: $uri');
-  }
+  if (uri == null) return false;
 
   String? portmarkString = urlToPortmarkString(urlString);
-  // print('portmarkString: $portmarkString');
-  if (portmarkString == null) return null;
 
   // An inline function to sanitize a string by removing reserved characters for Windows paths
   String sanitize(String str) => str.replaceAll(RegExp(r'["*/:<>?\\|]'), '');
@@ -61,64 +47,19 @@ _PortmarkFile? _portmarkFileFromUrl(String urlString) {
   // Add the portmark file extension
   final String fileName = '$basename$_portmarkFileExtension';
 
-  // Return the portmark file (name and contents)
-  return _PortmarkFile(fileName, portmarkString);
+  // Download the portmark file
+  webDownloadFile(fileName, utf8.encode(portmarkString));
+
+  return true;
 }
 
-void _addUrlToArchive(String url, Archive archive) {
-  _PortmarkFile? portmarkFile = _portmarkFileFromUrl(url);
-  if (portmarkFile == null) return;
-  // Uri? uri = Uri.tryParse(url);
-  // if (uri == null) {
-  //   print('Invalid URL: $url');
-  //   return;
-  // }
-  // print('Good URL: $url');
-
-  // String? portmarkString = urlToPortmarkString(url);
-  // if (portmarkString == null) return;
-  // print('portmarkString: $portmarkString');
-
-  // final String fileName = uriToValidFileName(uri, '.html');
-  // ArchiveFile archiveFile = ArchiveFile.string(fileName, portmarkString);
-  ArchiveFile archiveFile = ArchiveFile.string(portmarkFile.name, portmarkFile.content);
-  archive.addFile(archiveFile);
-}
-
-void _convertAndDownloadSingleUrl(String url) {
-  _PortmarkFile? portmarkFile = _portmarkFileFromUrl(url);
-  if (portmarkFile == null) return;
-
-  // Uri? uri = Uri.tryParse(url);
-  // if (uri == null) return;
-
-  // String? portmarkString = urlToPortmarkString(url);
-  // if (portmarkString == null) return;
-
-  // final String fileName = uriToValidFileName(uri, '.html');
-  // final bytes = utf8.encode(portmarkFile.contents);
-  webDownloadFile(portmarkFile.name, utf8.encode(portmarkFile.content));
-}
-
-void _convertAndDownloadMultipleUrls(List<String> urls) {
-  Archive archive = Archive();
-  for (var url in urls) {
-    _addUrlToArchive(url, archive);
-  }
-
-  OutputStream outputStream = OutputStream(
-    byteOrder: LITTLE_ENDIAN,
-  );
-
-  ZipEncoder zipEncoder = ZipEncoder();
-  List<int>? bytes = zipEncoder.encode(
-    archive,
-    level: Deflate.BEST_COMPRESSION,
-    output: outputStream,
-  );
-
-  if (bytes != null) {
-    Uint8List uint8list = Uint8List.fromList(List<int>.from(bytes));
-    webDownloadFile('portmarks.zip', uint8list);
+/// Converts multiple URL strings to portmark files and downloads them.
+///
+/// The [urls] are converted and downloaded one at a time, with a one-second delay between each.
+/// This is to avoid overloading the browser with too many simultaneous downloads.
+void _portmarkMultipleUrls(List<String> urls) async {
+  for (String url in urls) {
+    await Future.delayed(_portmarkDelay);
+    _portmarkSingleUrl(url);
   }
 }
