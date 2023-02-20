@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'dart:typed_data';
 
-void webDownloadFile(String fileName, Uint8List bytes) {
+void webDownloadFile(String fileName, List<int> bytes) {
   final Blob blob = Blob([bytes]);
   final url = Url.createObjectUrlFromBlob(blob);
 

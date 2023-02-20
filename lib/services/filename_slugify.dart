@@ -1,13 +1,12 @@
 String uriToValidFileName(Uri uri, String fileExtension) {
   String fileNameFromUri = uri.authority + uri.path + (uri.hasQuery ? '?' : '') + uri.query;
-  print(fileNameFromUri);
+  print('uriToValidFileName: $fileNameFromUri');
   // String fileNameFromUri = Uri(
   //   host: uri.host,
   //   path: uri.path,
   //   query: uri.query,
   // ).toString();
   // print(fileNameFromUri);
-
 
   return _makeFilenameSafe(fileNameFromUri) + fileExtension;
 }
