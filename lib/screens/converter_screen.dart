@@ -3,13 +3,14 @@
 // found in the LICENSE file.
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
+import '../../utils/utils.dart' as utils;
+import '../common/app_urls.dart';
 import '../common/ui_strings.dart';
 import '../services/portmark_converter.dart';
-import '../widgets/main_button.dart';
 import '../widgets/card_with_header.dart';
+import '../widgets/main_button.dart';
 
 class ConverterScreen extends StatefulWidget {
   const ConverterScreen({Key? key}) : super(key: key);
@@ -57,7 +58,9 @@ class _ConverterScreenState extends State<ConverterScreen> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.help_outline),
-            onPressed: () {},
+            onPressed: () {
+              utils.launchUrlExternal(context, AppUrls.help);
+            },
           ),
         ],
       ),
