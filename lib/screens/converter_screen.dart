@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
-import 'dart:html' as html;
+// import 'dart:ui' as ui;
+// import 'dart:html' as html;
 
 import '../common/ui_strings.dart';
 // import '../services/portmark_converter.dart';
@@ -21,24 +21,24 @@ class ConverterScreen extends StatefulWidget {
 class _ConverterScreenState extends State<ConverterScreen> {
   late TextEditingController _controller;
 
-  late html.TextAreaElement _textArea;
+  // late html.TextAreaElement _textArea;
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
 
-    _textArea = html.TextAreaElement()
-      ..wrap = 'off'
-      ..style.width = '100%'
-      ..style.height = '100%';
+    // _textArea = html.TextAreaElement()
+    //   ..wrap = 'off'
+    //   ..style.width = '100%'
+    //   ..style.height = '100%';
 
-    ui.platformViewRegistry.registerViewFactory(
-      'textarea',
-      (int viewId) {
-        return _textArea;
-      },
-    );
+    // ui.platformViewRegistry.registerViewFactory(
+    //   'textarea',
+    //   (int viewId) {
+    //     return _textArea;
+    //   },
+    // );
   }
 
   @override
@@ -49,7 +49,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
 
   void _onConvertPressed() {
     // convertUrlsToPortmarks(_controller.text);
-    print(_textArea.value);
+    // print(_textArea.value);
   }
 
   @override
@@ -94,28 +94,27 @@ class _ConverterScreenState extends State<ConverterScreen> {
   }
 
   Widget _buildUrlsToConvert(Size size) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 300,
-      child: const HtmlElementView(viewType: "textarea"),
-    );
-    // return const CardWithHeader(
-    //   title: UIStrings.conv_urlsCardTitle,
-    //   child: HtmlElementView(viewType: "textarea"),
-    //   // child: SingleChildScrollView(
-    //   //   scrollDirection: Axis.horizontal,
-    //   //   child: IntrinsicWidth(
-    //   //     stepWidth: size.width,
-    //   //     child: TextField(
-    //   //       controller: _controller,
-    //   //       maxLines: null,
-    //   //       decoration: const InputDecoration(
-    //   //         border: UnderlineInputBorder(),
-    //   //         hintText: UIStrings.conv_enterUrlsHint,
-    //   //       ),
-    //   //     ),
-    //   //   ),
-    //   // ),
+    // return SizedBox(
+    //   width: MediaQuery.of(context).size.width,
+    //   height: 300,
+    //   child: const HtmlElementView(viewType: "textarea"),
     // );
+    return CardWithHeader(
+      title: UIStrings.conv_urlsCardTitle,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: IntrinsicWidth(
+          stepWidth: size.width,
+          child: TextField(
+            controller: _controller,
+            maxLines: null,
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              hintText: UIStrings.conv_enterUrlsHint,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
