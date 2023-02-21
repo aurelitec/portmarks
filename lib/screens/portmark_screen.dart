@@ -13,14 +13,14 @@ import '../widgets/card_with_header.dart';
 import '../widgets/internal/app_drawer.dart';
 import '../widgets/main_button.dart';
 
-class ConverterScreen extends StatefulWidget {
-  const ConverterScreen({Key? key}) : super(key: key);
+class PortmarkScreen extends StatefulWidget {
+  const PortmarkScreen({Key? key}) : super(key: key);
 
   @override
-  State<ConverterScreen> createState() => _ConverterScreenState();
+  State<PortmarkScreen> createState() => _PortmarkScreenState();
 }
 
-class _ConverterScreenState extends State<ConverterScreen> {
+class _PortmarkScreenState extends State<PortmarkScreen> {
   late TextEditingController _controller;
 
   @override
@@ -67,7 +67,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
         padding: const EdgeInsets.all(12.0),
         child: MainButton(
           icon: const Icon(Icons.file_download),
-          label: const Text(strings.conv_convertButton),
+          label: const Text(strings.convertButton),
           onPressed: _onConvertPressed,
         ),
       ),
@@ -76,7 +76,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
 
   Widget _buildUrlsToConvert(Size size) {
     return CardWithHeader(
-      title: strings.conv_urlsCardTitle,
+      title: strings.urlsCardTitle,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: IntrinsicWidth(
@@ -86,7 +86,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
             maxLines: null,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
-              hintText: strings.conv_enterUrlsHint,
+              hintText: strings.enterUrlsHint,
             ),
           ),
         ),

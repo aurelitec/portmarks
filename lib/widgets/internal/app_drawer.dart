@@ -66,8 +66,8 @@ class AppDrawer extends StatelessWidget {
           _buildItem(
             context,
             icon: Icons.bookmark,
-            title: strings.portmarkDrawerTitle,
-            subtitle: strings.portmarkDrawerSubtitle,
+            title: strings.portmarkDrawer,
+            // subtitle: strings.portmarkDrawerSubtitle,
             item: AppDrawerItems.portmark,
           ),
 
@@ -138,13 +138,13 @@ class _AppDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DrawerHeader(
-      // decoration: BoxDecoration(color: color),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
       child: Center(
         child: Text(
           strings.appName,
-          // style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-          //       color: ColorUtils.contrastOf(color),
-          //     ),
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
         ),
       ),
     );

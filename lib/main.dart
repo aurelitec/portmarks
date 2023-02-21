@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'common/strings.dart' as strings;
-import 'screens/converter_screen.dart';
+import 'common/theme.dart' as theme;
+import 'screens/portmark_screen.dart';
 
 void main() {
   runApp(const PortmarksApp());
@@ -18,7 +19,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const ConverterScreen();
+        return const PortmarkScreen();
       },
     ),
   ],
@@ -35,9 +36,12 @@ class PortmarksApp extends StatelessWidget {
       routerConfig: _router,
       debugShowCheckedModeBanner: false,
       title: strings.appName,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+
+      // The light theme of the app
+      theme: theme.appTheme(Brightness.light),
+
+      // The dark theme of the app
+      darkTheme: theme.appTheme(Brightness.dark),
     );
   }
 }

@@ -14,9 +14,7 @@ const String appName = 'Portmarks';
 // Drawer items
 // -----------------------------------------------------------------------------------------------
 
-const String portmarkDrawerTitle = 'Portmarks';
-const String portmarkDrawerSubtitle = 'Convert URLs to portable bookmark files';
-
+const String portmarkDrawer = 'Convert & Download';
 const String supportDrawer = 'Support';
 const String helpDrawer = 'Help';
 const String viewSourceDrawer = 'View App Source';
@@ -27,14 +25,6 @@ const String viewSourceDrawerSubtitle = 'Yes, $appName is open source!';
 // -----------------------------------------------------------------------------------------------
 
 const String portmarkScreenTitle = 'Portmarks';
-
-const String conv_convertFromCardTitle = 'Convert from';
-const String conv_convertToCardTitle = 'Convert to';
-
-const String conv_urlsCardTitle = 'URLs to convert';
-// static const String conv_urlsCardTitle = 'Convert these URLs to portable bookmark files';
-const String conv_enterUrlsHint = 'Enter one or more URLs, each on a separate line';
-const String conv_directoryCardTitle = 'Save files to';
-const String conv_enterDirectoryHint = 'Enter the directory where you want to save the files';
-
-const String conv_convertButton = 'Convert & Download';
+const String urlsCardTitle = 'URLs to convert';
+const String enterUrlsHint = 'Enter one or more URLs, each on a separate line';
+const String convertButton = 'Convert & Download';
