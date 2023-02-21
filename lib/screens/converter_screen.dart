@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 
 import '../../utils/utils.dart' as utils;
 import '../common/app_urls.dart';
-import '../common/ui_strings.dart';
+import '../common/strings.dart' as strings;
 import '../services/portmark_converter.dart';
 import '../widgets/card_with_header.dart';
+import '../widgets/internal/app_drawer.dart';
 import '../widgets/main_button.dart';
 
 class ConverterScreen extends StatefulWidget {
@@ -44,17 +45,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: ListTile(
-          textColor: Colors.white60,
-          title: Text(
-            UIStrings.conv_screenTitle,
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          subtitle: const Text(UIStrings.conv_screenSubtitle),
-        ),
+        title: const Text(strings.portmarkScreenTitle),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.help_outline),
@@ -64,6 +55,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: Align(
         alignment: Alignment.topLeft,
         child: SingleChildScrollView(
@@ -75,7 +67,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
         padding: const EdgeInsets.all(12.0),
         child: MainButton(
           icon: const Icon(Icons.file_download),
-          label: const Text(UIStrings.conv_convertButton),
+          label: const Text(strings.conv_convertButton),
           onPressed: _onConvertPressed,
         ),
       ),
@@ -84,7 +76,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
 
   Widget _buildUrlsToConvert(Size size) {
     return CardWithHeader(
-      title: UIStrings.conv_urlsCardTitle,
+      title: strings.conv_urlsCardTitle,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: IntrinsicWidth(
@@ -94,7 +86,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
             maxLines: null,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
-              hintText: UIStrings.conv_enterUrlsHint,
+              hintText: strings.conv_enterUrlsHint,
             ),
           ),
         ),

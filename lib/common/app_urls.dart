@@ -9,6 +9,11 @@ class AppUrls {
   static const String _appId = 'portmarks';
   static const String _editionId = 'web';
 
+  static const String support =
+      'https://www.aurelitec.com/support/?utm_source=$_appId&utm_medium=app&utm_campaign=${_appId}_${_editionId}_drawer';
+
   static const String help =
       'https://www.aurelitec.com/$_appId/?utm_source=$_appId&utm_medium=app&utm_campaign=${_appId}_${_editionId}_appbar';
+
+  static const String viewSource = 'https://github.com/aurelitec/portmarks';
 }

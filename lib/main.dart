@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'common/ui_strings.dart';
+import 'common/strings.dart' as strings;
 import 'screens/converter_screen.dart';
 
 void main() {
@@ -34,7 +34,7 @@ class PortmarksApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: _router,
       debugShowCheckedModeBanner: false,
-      title: UIStrings.appName,
+      title: strings.appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
